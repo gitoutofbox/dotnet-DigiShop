@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DigiShop.Controllers
 {
-    [Route("api/products")]
+    [Route("api/categories/{categoryId}/products")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -19,6 +19,14 @@ namespace DigiShop.Controllers
             mapper = _mapper ?? throw new ArgumentNullException(nameof(_mapper));
         }
 
+        [HttpGet]
+        public async Task<ActionResult<ProductDto>> GetProducts(int categoryId) {
+            var products = await digiShopRepository.GetProducts(categoryId);
+
+            return Ok(mapper.Map<IEnumerable<ProductDto>>(products));
+        }
+
+
         [HttpGet("{productId}", Name = "GetProduct")]
         public async Task<ActionResult<ProductDto>> GetProduct(int productId)
         {
@@ -30,7 +38,7 @@ namespace DigiShop.Controllers
             return Ok(mapper.Map<ProductDto>(product));
         }
 
-        [HttpPost("{categoryId}")]
+        [HttpPost]
         public async Task<ActionResult<ProductDto>> AddProduct(int categoryId, ProductAddDto product)
         {
             var category = await digiShopRepository.GetCategory(categoryId);

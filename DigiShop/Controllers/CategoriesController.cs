@@ -22,10 +22,10 @@ namespace DigiShop.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
+        public async Task<ActionResult<CategoryDto>> GetCategories()
         {
             var categories = await digiShopoRepository.GetCategories();
-            return Ok(categories);
+            return Ok(mapper.Map<IEnumerable<Models.Dtos.CategoryDto>>(categories));
         }
 
         [HttpGet("{id}")]

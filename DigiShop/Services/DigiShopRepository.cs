@@ -36,7 +36,7 @@ public class DigiShopRepository : IDigiShopRepository
 
     public async Task<bool> SaveChanges()
     {
-        return (await context.SaveChangesAsync() >= 0);
+        return await context.SaveChangesAsync() >= 0;
     }
 
     public async Task<IEnumerable<Product>> GetProducts(int categoryId)

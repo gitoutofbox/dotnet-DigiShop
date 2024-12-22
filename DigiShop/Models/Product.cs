@@ -6,15 +6,18 @@ namespace DigiShop.Models;
 
 public class Product
 {
-[Key]
-[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-public int Id {get; set;}
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; }
 
-public required Category Category {get;set;}
-[ForeignKey("CategoryId")]
-public int CategoryId {get; set;}
+    [ForeignKey("CategoryId")]
+    public Category? category { get; set; }
+    public int CategoryId { get; set; }
 
-public string Name {get; set;} = string.Empty;
-
-public string? Description {get; set;}
+    public Product(string name)
+    {
+        Name = name;
+    }
 }

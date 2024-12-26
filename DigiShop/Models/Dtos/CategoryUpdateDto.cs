@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DigiShop.Models.Dtos;
 
-public class CategoryAddDto
+public class CategoryUpdateDto
 {
     [Required(ErrorMessage = "You should provide a valid name")]
     [MaxLength(50)]

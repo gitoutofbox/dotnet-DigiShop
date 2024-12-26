@@ -1,6 +1,7 @@
 using AutoMapper;
 using DigiShop.Models.Dtos;
 using DigiShop.Services;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigiShop.Controllers
@@ -43,6 +44,30 @@ namespace DigiShop.Controllers
             await digiShopoRepository.AddCategory(mappedCategory);
             await digiShopoRepository.SaveChanges();
             return Ok(category);
+        }
+
+        [HttpPatch("{categoryId}")]
+        public async Task<ActionResult> PartialUpdate(
+            int categoryId, 
+            JsonPatchDocument<CategoryUpdateDto> patchDocument) 
+            {
+            var category = await digiShopoRepository.GetCategory(categoryId);
+            if(category == null) {
+                return NotFound();
+            }
+
+            var categoryToPatch = mapper.Map<CategoryUpdateDto>(category);
+            patchDocument.ApplyTo(categoryToPatch, ModelState);
+            if(!ModelState.IsValid) {
+                return BadRequest();
+            }
+
+            if(!TryValidateModel(categoryToPatch)) {
+                return BadRequest();
+            }
+             mapper.Map(categoryToPatch, category);
+             await digiShopoRepository.SaveChanges();
+             return NoContent();
         }
     }
 }

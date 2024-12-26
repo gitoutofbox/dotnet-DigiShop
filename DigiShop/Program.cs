@@ -3,7 +3,11 @@ using DigiShop.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => {
+    options.ReturnHttpNotAcceptable = true;
+})
+.AddNewtonsoftJson()
+.AddXmlDataContractSerializerFormatters();
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

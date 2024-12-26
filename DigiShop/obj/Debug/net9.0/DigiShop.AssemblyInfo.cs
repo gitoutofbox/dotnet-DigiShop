@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DigiShop")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+105fa88058a34c7c339f51c315009be351929b07")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d70aff74432ffd0039bf7d653fabfa386f641e8a")]
 [assembly: System.Reflection.AssemblyProductAttribute("DigiShop")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DigiShop")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,4 +1,4 @@
-using DigiShop.Dbcontext;
+using DigiShop.Dbcontexts;
 using DigiShop.Services;
 using Microsoft.EntityFrameworkCore;
 

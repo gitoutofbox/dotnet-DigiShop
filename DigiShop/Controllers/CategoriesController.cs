@@ -1,9 +1,6 @@
 using AutoMapper;
-using DigiShop.Dbcontext;
-using DigiShop.Models;
 using DigiShop.Models.Dtos;
 using DigiShop.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigiShop.Controllers
@@ -29,14 +26,14 @@ namespace DigiShop.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CategoryDto>> GetCategory(int id)
+        public async Task<IActionResult> GetCategory(int id)
         {
             var category = await digiShopoRepository.GetCategory(id);
             if (category == null)
             {
                 return NotFound();
             }
-            return Ok(category);
+            return Ok(mapper.Map<CategoryDto>(category));
         }
 
         [HttpPost]

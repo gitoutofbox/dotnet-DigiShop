@@ -1,6 +1,6 @@
 using System;
 using AutoMapper;
-using DigiShop.Dbcontext;
+using DigiShop.Dbcontexts;
 using DigiShop.Models;
 using DigiShop.Models.Dtos;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -25,7 +25,9 @@ public class DigiShopRepository : IDigiShopRepository
 
     public async Task<Category?> GetCategory(int id)
     {
-        return await context.Categories.Where(c => c.Id == id).FirstOrDefaultAsync();
+        return await context.Categories
+        .Include(c => c.Products)
+        .Where(c => c.Id == id).FirstOrDefaultAsync();
     }
 
     public async Task AddCategory(Category category)

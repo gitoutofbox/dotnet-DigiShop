@@ -2,7 +2,7 @@ using System;
 using DigiShop.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigiShop.Dbcontext;
+namespace DigiShop.Dbcontexts;
 
 public class DigiShopDbContext: DbContext
 {

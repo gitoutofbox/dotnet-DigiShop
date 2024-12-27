@@ -20,10 +20,15 @@ namespace DigiShop.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<CategoryDto>> GetCategories()
+        public async Task<IActionResult> GetCategories(bool includeProducts = false)
         {
+            if(!includeProducts) {
             var categories = await digiShopoRepository.GetCategories();
             return Ok(mapper.Map<IEnumerable<Models.Dtos.CategoryDto>>(categories));
+            } else {
+                var categories = await digiShopoRepository.GetCategoriesWithProducts();
+                return Ok(mapper.Map<IEnumerable<Models.Dtos.CategoryWithProductsDto>>(categories));
+            }
         }
 
         [HttpGet("{id}")]

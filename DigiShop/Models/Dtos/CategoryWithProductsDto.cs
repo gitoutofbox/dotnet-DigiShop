@@ -2,7 +2,7 @@ using System;
 
 namespace DigiShop.Models.Dtos;
 
-public class CategoryDto
+public class CategoryWithProductsDto
 {
     public int Id { get; set; }
 
@@ -10,5 +10,5 @@ public class CategoryDto
 
     public string? Description { get; set; }
 
-    // public ICollection<ProductDto> Products {get; set;} = new List<ProductDto>();
+    public ICollection<ProductDto> Products {get; set;} = new List<ProductDto>();
 }

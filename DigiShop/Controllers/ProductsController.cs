@@ -1,4 +1,5 @@
 using AutoMapper;
+using DigiShop.Models;
 using DigiShop.Models.Dtos;
 using DigiShop.Services;
 using Microsoft.AspNetCore.Http;
@@ -76,6 +77,18 @@ namespace DigiShop.Controllers
                 return BadRequest();
             }
             mapper.Map(productToPatch, product);
+            await digiShopRepository.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpDelete("{productId}")]
+        public async Task<IActionResult> DeleteProduct(int productId) {
+            var product = await digiShopRepository.GetProduct(productId);
+            if(product == null) {
+                return NotFound();
+            }
+
+            digiShopRepository.DeleteProduct(product);
             await digiShopRepository.SaveChanges();
             return NoContent();
         }

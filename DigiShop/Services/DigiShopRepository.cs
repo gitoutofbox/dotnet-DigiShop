@@ -23,6 +23,11 @@ public class DigiShopRepository : IDigiShopRepository
         return await context.Categories.OrderBy(c => c.Name).ToListAsync();
     }
 
+    public async Task<IEnumerable<Category>> GetCategoriesWithProducts()
+    {
+        return await context.Categories.Include(c => c.Products).OrderBy(c => c.Name).ToListAsync();
+    }
+
     public async Task<Category?> GetCategory(int id)
     {
         return await context.Categories
@@ -78,4 +83,9 @@ public class DigiShopRepository : IDigiShopRepository
     //     }
     //     return true;
     // }
+
+    public void DeleteProduct(Product product) {
+        context.Products.Remove(product);
+        
+    }
 }

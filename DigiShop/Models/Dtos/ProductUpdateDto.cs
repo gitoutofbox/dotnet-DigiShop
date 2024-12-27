@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DigiShop.Models.Dtos;
 
-public class ProductAddDto
+public class ProductUpdateDto
 {
-
     [Required]
     [MaxLength(50)]
     public string Name { get; set; } = string.Empty;

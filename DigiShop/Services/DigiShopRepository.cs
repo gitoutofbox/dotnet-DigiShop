@@ -60,4 +60,22 @@ public class DigiShopRepository : IDigiShopRepository
         }
 
     }
+
+    public async Task<bool> IsCategoryExists(int categoryId)
+    {
+        var category = await context.Categories.Where(c => c.Id == categoryId).FirstOrDefaultAsync();
+        if(category == null) {
+            return false;
+        }
+        return true;
+    }
+
+    // public async Task<bool> isProductExists(int poductId)
+    // {
+    //     var category = await context.Products.Where(p => p.Id == poductId).FirstOrDefaultAsync();
+    //     if(category == null) {
+    //         return false;
+    //     }
+    //     return true;
+    // }
 }

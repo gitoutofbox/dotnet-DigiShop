@@ -58,6 +58,7 @@ namespace DigiShop.Controllers
 
             var categoryToPatch = mapper.Map<CategoryUpdateDto>(category);
             patchDocument.ApplyTo(categoryToPatch, ModelState);
+            
             if(!ModelState.IsValid) {
                 return BadRequest();
             }

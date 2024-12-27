@@ -2,6 +2,7 @@ using AutoMapper;
 using DigiShop.Models.Dtos;
 using DigiShop.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigiShop.Controllers
@@ -53,5 +54,31 @@ namespace DigiShop.Controllers
             return CreatedAtRoute("GetProduct", new {categoryId = categoryId, productId = createdProduct.Id}, createdProduct);
             
         }
+    
+        [HttpPatch("{productId}")]
+        public async Task<IActionResult> ParticalUpdate(int categoryId, int productId, JsonPatchDocument<ProductUpdateDto> patchDocument) 
+        {
+            var isCategoryExists = await digiShopRepository.IsCategoryExists(categoryId);
+            if(!isCategoryExists) {
+                return NotFound();
+            }
+
+            var product = await digiShopRepository.GetProduct(productId);
+            if(product == null) {
+                return NotFound();
+            }
+
+
+            var productToPatch = mapper.Map<ProductUpdateDto>(product);
+            patchDocument.ApplyTo(productToPatch, ModelState);
+
+            if(!ModelState.IsValid || !TryValidateModel(productToPatch)) {
+                return BadRequest();
+            }
+            mapper.Map(productToPatch, product);
+            await digiShopRepository.SaveChanges();
+            return NoContent();
+        }
+    
     }
 }

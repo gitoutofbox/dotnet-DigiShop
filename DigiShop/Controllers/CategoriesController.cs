@@ -52,9 +52,7 @@ namespace DigiShop.Controllers
         }
 
         [HttpPatch("{categoryId}")]
-        public async Task<ActionResult> PartialUpdate(
-            int categoryId, 
-            JsonPatchDocument<CategoryUpdateDto> patchDocument) 
+        public async Task<ActionResult> PartialUpdate(int categoryId, JsonPatchDocument<CategoryUpdateDto> patchDocument) 
             {
             var category = await digiShopoRepository.GetCategory(categoryId);
             if(category == null) {
